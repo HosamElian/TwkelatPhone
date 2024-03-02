@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Twkelat.Mobile.Views.Contorls"
+             x:Class="Twkelat.Mobile.Pages.LoginPage"
+             Title="LoginPage">
+    <VerticalStackLayout>
+        <controls:LoginContent x:Name="loginCtrl"
+                               OnLogin="btnLogin_Clicked"
+                               OnSignup="btnSignup_Clicked"
+                               OnError="loginCtrl_OnError">
+            
+        </controls:LoginContent>
+    </VerticalStackLayout>
+</ContentPage>
