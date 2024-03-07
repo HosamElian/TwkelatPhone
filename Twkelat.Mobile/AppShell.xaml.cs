@@ -1,4 +1,5 @@
 ﻿using Twkelat.Mobile.Pages;
+using Twkelat.Mobile.ViewModels;
 
 namespace Twkelat.Mobile
 {
@@ -7,10 +8,8 @@ namespace Twkelat.Mobile
         public AppShell()
         {
             InitializeComponent();
-
-            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+            this.BindingContext = new AppShellViewModel();
             Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
-            Routing.RegisterRoute(nameof(SignupPage), typeof(SignupPage));
         }
 
     }

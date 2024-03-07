@@ -12,19 +12,4 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
-    <Application.MainPage>
-        <Shell>
-            <TabBar>
-                <Tab Title="Home" Icon="tabhome.svg">
-                    <ShellContent ContentTemplate="{DataTemplate pages:HomePage}"/>
-                </Tab>
-                <Tab Title="Settings" Icon="tabsettings.svg">
-                    <ShellContent ContentTemplate="{DataTemplate pages:SettingsPage}"/>
-                </Tab>
-                <Tab Title="Document" Icon="tabdocument.svg">
-                    <ShellContent ContentTemplate="{DataTemplate pages:DocumentPage}"/>
-                </Tab>
-            </TabBar>
-        </Shell>
-    </Application.MainPage>
 </Application>
