@@ -5,17 +5,6 @@
              x:Class="Twkelat.Mobile.Pages.LoginPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="LoginPage">
-    <!--<VerticalStackLayout>
-        -->
-    <!--<controls:LoginContent x:Name="loginCtrl"
-                               OnLogin="btnLogin_Clicked"
-                               OnSignup="btnSignup_Clicked"
-                               OnError="loginCtrl_OnError">-->
-
-    <!--</controls:LoginContent>-->
-    <!--
-        
-    </VerticalStackLayout>-->
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="220"/>
@@ -47,7 +36,7 @@
                         <Frame Background="White" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5" >
                             <Image Source="person_icon.svg" Aspect="AspectFill" Margin="0"/>
                         </Frame>
-                        <Entry Text="{Binding Email}"  Placeholder="Email" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0">
+                        <Entry Text="{Binding Email}" x:Name="emailTXT"  Placeholder="Email" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0">
                             <Entry.Behaviors>
                                 <toolkit:MultiValidationBehavior
                                      x:Name="emailValidator"
@@ -70,7 +59,7 @@
                         <Frame Background="White" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5" >
                             <Image Source="password_icon.svg" Aspect="AspectFill" Margin="0"/>
                         </Frame>
-                        <Entry Text="{Binding Password}"  Placeholder="Password" IsPassword="True" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0">
+                        <Entry Text="{Binding Password}" x:Name="passwordTXT"  Placeholder="Password" IsPassword="True" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0">
                             <Entry.Behaviors>
                                 <toolkit:TextValidationBehavior
                                     x:Name="passwordValidator"
@@ -81,16 +70,16 @@
                     </StackLayout>
                 </Frame>
 
-                <StackLayout Orientation="Horizontal" Margin="0,10,0,0" Padding="0">
+                <!--<StackLayout Orientation="Horizontal" Margin="0,10,0,0" Padding="0">
                     <CheckBox IsChecked="False"/>
-                    <Label Text="Remeber Me" TextColor="DarkGray" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                    <Label Text="Forget Password" TextColor="#512bd4" FontAttributes="Bold"  VerticalTextAlignment="Center" HorizontalTextAlignment="Center" HorizontalOptions="EndAndExpand"/>
-                </StackLayout>
+                    --><!--<Label Text="Remeber Me" TextColor="DarkGray" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>-->
+                    <!--<Label Text="Forget Password" TextColor="#512bd4" FontAttributes="Bold"  VerticalTextAlignment="Center" HorizontalTextAlignment="Center" HorizontalOptions="EndAndExpand"/>--><!--
+                </StackLayout>-->
 
-                <Button Text="SIGN IN" BackgroundColor="#512bd4" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="0,15,0,0" Command="{Binding LoginCommand}"/>
-                <StackLayout  Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Padding="0" Margin="0, 60, 0, 0">
-                    <Label Text="New User?" TextColor="Black" FontSize="Small" />
-                    <Label Text="Sing up" TextColor="#512bd4" FontAttributes="Bold"  Padding="10,0,0,0" />
+                <Button Text="SIGN IN" BackgroundColor="#512bd4" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="0,25,0,0" Clicked="Login"/>
+                <StackLayout  Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center" Padding="0" Margin="0, 30, 0, 0">
+                    <Label Text="New User?" TextColor="Black" FontSize="Small" HorizontalTextAlignment="Center"  HorizontalOptions="Center"/>
+                    <Button Text="Sing up" BackgroundColor="#512bd4" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="0,15,0,0" Clicked="SingupBT_Clicked" />
                 </StackLayout>
             </StackLayout>
 

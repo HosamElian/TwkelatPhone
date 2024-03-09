@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Behaviors;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Newtonsoft.Json;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Twkelat.Mobile.Models;
 using Twkelat.Mobile.Pages;
 using Twkelat.Mobile.Repository.IRepository;
 using Twkelat.Mobile.UserControl;
@@ -14,7 +16,7 @@ namespace Twkelat.Mobile.ViewModels
 {
     public partial class LoginPageViewModel:BaseViewModel
     {
-        public LoginPageViewModel(ILoginRepository loginRepository)
+        public LoginPageViewModel(IUserRepository loginRepository)
         {
             _loginRepository = loginRepository;
             _email = string.Empty;
@@ -24,14 +26,29 @@ namespace Twkelat.Mobile.ViewModels
         private string _email;
         [ObservableProperty]
         private string _password;
-        private readonly ILoginRepository _loginRepository;
+        
+        //[ObservableProperty]
+        //private TextValidationBehavior _passwordValidator;
+        //[ObservableProperty]
+        //private MultiValidationBehavior _emailValidator;
 
+
+        private readonly IUserRepository _loginRepository; 
+        
         [ICommand]
         public async void Login()
         {
             if(!string.IsNullOrWhiteSpace(_email) && !string.IsNullOrWhiteSpace(_password))
             {
-                var resultJson = await _loginRepository.Login(Email, Password);
+                //if (_emailValidator.IsNotValid)
+                //{
+
+                //}
+                //if(_passwordValidator.IsNotValid)
+                //{
+
+                //}
+                var resultJson = await _loginRepository.Login(new LoginModel() { Email = Email, Password = Password });
 
                 if (Preferences.ContainsKey(nameof(App.credData)))
                 {

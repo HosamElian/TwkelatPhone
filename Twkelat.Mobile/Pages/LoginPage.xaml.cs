@@ -1,31 +1,79 @@
+using Newtonsoft.Json;
+using Twkelat.Mobile.Models;
+using Twkelat.Mobile.Repository.IRepository;
+using Twkelat.Mobile.UserControl;
 using Twkelat.Mobile.ViewModels;
 
 namespace Twkelat.Mobile.Pages;
 
 public partial class LoginPage : ContentPage
 {
-	public LoginPage(LoginPageViewModel loginPageViewModel)
-	{
-		InitializeComponent();
-        this.BindingContext = loginPageViewModel;
-	}
+    public LoginPage(IUserRepository userRepository)
+    {
+        InitializeComponent();
+        _userRepository = userRepository;
 
-    //private void btnLogin_Clicked(object sender, EventArgs e)
-    //{
-    //    Shell.Current.GoToAsync($"{nameof(HomePage)}");
+    }
+    public string Email
+    {
+        get
+        {
+            return emailTXT.Text;
+        }
+        set
+        {
+            emailTXT.Text = value;
+        }
+    }
+    public string Password
+    {
+        get
+        {
+            return passwordTXT.Text;
+        }
+        set
+        {
+            passwordTXT.Text = value;
+        }
+    }
 
-    //}
+    private readonly IUserRepository _userRepository;
 
-    //private void btnSignup_Clicked(object sender, EventArgs e)
-    //{
-    //    Shell.Current.GoToAsync($"{nameof(SignupPage)}");
+    private async void Login(object sender, EventArgs e)
+    {
+        if (emailValidator.IsNotValid)
+        {
+            foreach (var error in emailValidator.Errors)
+            {
+                await DisplayAlert("Error", error?.ToString(), "Ok");
+            }
+            return;
+        }
+        if (passwordValidator.IsNotValid)
+        {
+            await DisplayAlert("Error", "Password is required.", "Ok");
+            return;
+        }
+        LoginModel model = new() { Email = Email, Password = Password };
+        var resultJson = await _userRepository.Login(model);
 
-    //}
+        if (Preferences.ContainsKey(nameof(App.credData)))
+        {
+            Preferences.Remove(nameof(App.credData));
+        }
+        if (resultJson != null)
+        {
+            var data = JsonConvert.SerializeObject(resultJson);
+            Preferences.Set(nameof(App.credData), data);
+            App.credData = resultJson;
+            AppShell.Current.FlyoutHeader = new FlyoutHeaderControl();
+            await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+        }
 
-    //private void loginCtrl_OnError(object sender, string e)
-    //{
-    //    DisplayAlert("Error", e, "Ok");
-    //}
+    }
 
-
+    private async void SingupBT_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"{nameof(SignupPage)}");
+    }
 }

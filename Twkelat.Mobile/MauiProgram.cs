@@ -32,7 +32,7 @@ namespace Twkelat.Mobile
             builder.Services.AddSingleton<LoginPageViewModel>();
 
             // Services
-            builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddSingleton<HttpClient>();
             
 #if DEBUG

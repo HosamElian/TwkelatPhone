@@ -2,11 +2,148 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Twkelat.Mobile.Pages.SignupPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="SignupPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="220"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Path  Stroke="#000"  Data="m0.30001,0l449,0l0,128.48327c-122.5,64.30167 -332.5,65.89076 -449,7.2429c0,-45.25313 0,-90.47304 0,-135.72617z" Fill="#512bd4"/>
+        <StackLayout>
+            <Frame Background="White" HeightRequest="75" CornerRadius="60" Padding="0" Margin="0,100,0,0" HorizontalOptions="Center">
+                <Image Source="person_icon.svg" Aspect="AspectFill"  Margin="0"/>
+            </Frame>
+        </StackLayout>
+        <Grid RowSpacing="5" Grid.Row="1" Margin="20,20,20,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="1" Text="Welecome !" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Padding="0" Margin="0"/>
+            <Label Grid.Row="2" Text="Sign in to continoue" HorizontalOptions="Center" FontSize="Subtitle"  />
+
+            
+            <StackLayout Grid.Row="3" Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                
+                <Frame Background="Transparent"  BorderColor="#512bd4" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                    <StackLayout Orientation="Horizontal">
+                        <Frame Background="White" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5" >
+                            <Image Source="person_icon.svg" Aspect="AspectFill" Margin="0"/>
+                        </Frame>
+                        <Entry x:Name="firstNameTXT"  Placeholder="First Name" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0">
+                            <Entry.Behaviors>
+                                <toolkit:MultiValidationBehavior
+                                     x:Name="firstNameValidator"
+                                     Flags="ValidateOnAttaching,ValidateOnValueChanged">
+                                    <toolkit:TextValidationBehavior
+                                        Flags="ValidateOnAttaching,ValidateOnValueChanged" 
+                                         MinimumLength="1"
+                                         toolkit:MultiValidationBehavior.Error="First Name is required"/>
+                                </toolkit:MultiValidationBehavior>
+                            </Entry.Behaviors>
+                        </Entry>
+                    </StackLayout>
+                </Frame>
+                <Frame Background="Transparent"  BorderColor="#512bd4" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                    <StackLayout Orientation="Horizontal">
+                        <Frame Background="White" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5" >
+                            <Image Source="person_icon.svg" Aspect="AspectFill" Margin="0"/>
+                        </Frame>
+                        <Entry  x:Name="lastNameTXT"  Placeholder="Last Name" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0">
+                            <Entry.Behaviors>
+                                <toolkit:MultiValidationBehavior
+                                     x:Name="lastNameValidator"
+                                     Flags="ValidateOnAttaching,ValidateOnValueChanged">
+                                    <toolkit:TextValidationBehavior
+                                        Flags="ValidateOnAttaching,ValidateOnValueChanged" 
+                                         MinimumLength="1"
+                                         toolkit:MultiValidationBehavior.Error="Last Name is required"/>
+                                </toolkit:MultiValidationBehavior>
+                            </Entry.Behaviors>
+                        </Entry>
+                    </StackLayout>
+                </Frame>
+                
+                <Frame Background="Transparent"  BorderColor="#512bd4" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                    <StackLayout Orientation="Horizontal">
+                        <Frame Background="White" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5" >
+                            <Image Source="person_icon.svg" Aspect="AspectFill" Margin="0"/>
+                        </Frame>
+                        <Entry Text="{Binding Username}" x:Name="usernameTXT"  Placeholder="Usename" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0">
+                            <Entry.Behaviors>
+                                <toolkit:MultiValidationBehavior
+                                     x:Name="usernameValidator"
+                                     Flags="ValidateOnAttaching,ValidateOnValueChanged">
+                                    <toolkit:TextValidationBehavior
+                                        Flags="ValidateOnAttaching,ValidateOnValueChanged" 
+                                         MinimumLength="1"
+                                         toolkit:MultiValidationBehavior.Error="Username is required"/>
+                                </toolkit:MultiValidationBehavior>
+                            </Entry.Behaviors>
+                        </Entry>
+                    </StackLayout>
+                </Frame>
+
+                <Frame Background="Transparent"  BorderColor="#512bd4" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                    <StackLayout Orientation="Horizontal">
+                        <Frame Background="White" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5" >
+                            <Image Source="person_icon.svg" Aspect="AspectFill" Margin="0"/>
+                        </Frame>
+                        <Entry Text="{Binding Email}" x:Name="emailTXT"  Placeholder="Email" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0">
+                            <Entry.Behaviors>
+                                <toolkit:MultiValidationBehavior
+                                     x:Name="emailValidator"
+                                     Flags="ValidateOnAttaching,ValidateOnValueChanged">
+                                    <toolkit:TextValidationBehavior
+                                        Flags="ValidateOnAttaching,ValidateOnValueChanged" 
+                                         MinimumLength="1"
+                                         toolkit:MultiValidationBehavior.Error="Email is required"/>
+                                    <toolkit:EmailValidationBehavior
+                                         Flags="ValidateOnAttaching,ValidateOnValueChanged" 
+                                        toolkit:MultiValidationBehavior.Error="Email Format is invalid"/>
+                                </toolkit:MultiValidationBehavior>
+                            </Entry.Behaviors>
+                        </Entry>
+                    </StackLayout>
+                </Frame>
+                
+                <Frame Background="Transparent"  BorderColor="#512bd4" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                    <StackLayout Orientation="Horizontal">
+                        <Frame Background="White" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5" >
+                            <Image Source="password_icon.svg" Aspect="AspectFill" Margin="0"/>
+                        </Frame>
+                        <Entry Text="{Binding Password}" x:Name="passwordTXT"  Placeholder="Password" IsPassword="True" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0">
+                            <Entry.Behaviors>
+                                <toolkit:TextValidationBehavior
+                                    x:Name="passwordValidator"
+                                    Flags="ValidateOnAttaching,ValidateOnValueChanged" 
+                                    MinimumLength="8"/>
+                            </Entry.Behaviors>
+                        </Entry>
+                    </StackLayout>
+                </Frame>
+                <Frame Background="Transparent"  BorderColor="#512bd4" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                    <StackLayout Orientation="Horizontal">
+                        <Frame Background="White" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5" >
+                            <Image Source="password_icon.svg" Aspect="AspectFill" Margin="0"/>
+                        </Frame>
+                        <Entry  x:Name="passwordConfirmationTXT"  Placeholder="Password Comfirmation" IsPassword="True" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0">
+                        </Entry>
+                    </StackLayout>
+                </Frame>
+
+                <Button Text="Register" BackgroundColor="#512bd4" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="0,25,0,0" Clicked="Register_Clicked"/>
+               
+            </StackLayout>
+
+        </Grid>
+    </Grid> 
 </ContentPage>

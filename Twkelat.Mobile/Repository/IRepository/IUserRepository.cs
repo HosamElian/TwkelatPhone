@@ -7,8 +7,9 @@ using Twkelat.Mobile.Models;
 
 namespace Twkelat.Mobile.Repository.IRepository
 {
-    public interface ILoginRepository
+    public interface IUserRepository
     {
-        Task<AuthModelResponse> Login(string email, string password);
+        Task<AuthModelResponse> Login(LoginModel login);
+        Task<AuthModelResponse> Register(RegisterModel registerModel);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Twkelat.Mobile.Models
 {
-    public class TokenRequestModel
+    public class LoginModel
     {
         [Required]
         public string Email { get; set; }
