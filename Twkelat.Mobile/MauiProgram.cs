@@ -4,7 +4,6 @@ using Twkelat.Mobile.Pages;
 using Twkelat.Mobile.Repository;
 using Twkelat.Mobile.Repository.IRepository;
 using Twkelat.Mobile.ViewModels;
-
 namespace Twkelat.Mobile
 {
     public static class MauiProgram
@@ -27,6 +26,7 @@ namespace Twkelat.Mobile
             builder.Services.AddSingleton<DocumentPage>();
             builder.Services.AddSingleton<SettingsPage>();
             builder.Services.AddSingleton<SignupPage>();
+            builder.Services.AddSingleton<CreateDelegationPage>();
 
             // View Model
             builder.Services.AddSingleton<LoginPageViewModel>();
@@ -34,9 +34,8 @@ namespace Twkelat.Mobile
             // Services
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddSingleton<HttpClient>();
-            
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

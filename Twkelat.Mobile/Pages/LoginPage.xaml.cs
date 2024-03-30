@@ -41,34 +41,36 @@ public partial class LoginPage : ContentPage
 
     private async void Login(object sender, EventArgs e)
     {
-        if (emailValidator.IsNotValid)
-        {
-            foreach (var error in emailValidator.Errors)
-            {
-                await DisplayAlert("Error", error?.ToString(), "Ok");
-            }
-            return;
-        }
-        if (passwordValidator.IsNotValid)
-        {
-            await DisplayAlert("Error", "Password is required.", "Ok");
-            return;
-        }
-        LoginModel model = new() { Email = Email, Password = Password };
-        var resultJson = await _userRepository.Login(model);
+        await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
 
-        if (Preferences.ContainsKey(nameof(App.credData)))
-        {
-            Preferences.Remove(nameof(App.credData));
-        }
-        if (resultJson != null)
-        {
-            var data = JsonConvert.SerializeObject(resultJson);
-            Preferences.Set(nameof(App.credData), data);
-            App.credData = resultJson;
-            AppShell.Current.FlyoutHeader = new FlyoutHeaderControl();
-            await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-        }
+        //if (emailValidator.IsNotValid)
+        //{
+        //    foreach (var error in emailValidator.Errors)
+        //    {
+        //        await DisplayAlert("Error", error?.ToString(), "Ok");
+        //    }
+        //    return;
+        //}
+        //if (passwordValidator.IsNotValid)
+        //{
+        //    await DisplayAlert("Error", "Password is required.", "Ok");
+        //    return;
+        //}
+        //LoginModel model = new() { Email = Email, Password = Password };
+        //var resultJson = await _userRepository.Login(model);
+
+        //if (Preferences.ContainsKey(nameof(App.credData)))
+        //{
+        //    Preferences.Remove(nameof(App.credData));
+        //}
+        //if (resultJson != null)
+        //{
+        //    var data = JsonConvert.SerializeObject(resultJson);
+        //    Preferences.Set(nameof(App.credData), data);
+        //    App.credData = resultJson;
+        //    AppShell.Current.FlyoutHeader = new FlyoutHeaderControl();
+        //    await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+        //}
 
     }
 

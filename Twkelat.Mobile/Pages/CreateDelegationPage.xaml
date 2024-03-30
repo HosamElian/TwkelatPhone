@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Twkelat.Mobile.Pages.CreateDelegationPage"
+             Title="Create Delegation">
+    <StackLayout Margin="10,0, 10, 0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <!-- Dropdown menu -->
+        <Frame>
+            <VerticalStackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" >
+                    <Entry HorizontalOptions="FillAndExpand" Placeholder="Search User"/>
+                    <Button  HorizontalOptions="End" Text="Search"/>
+                </StackLayout>
+               
+            </VerticalStackLayout>
+        </Frame>
+        <Frame>
+            <StackLayout Orientation="Vertical" >
+                <Frame>
+                    <Label Text="Select The power attorney"  HorizontalOptions="Center"/>
+                </Frame>
+                <RadioButton  Value="General" GroupName="Attorney"  Content="General"/>
+                <RadioButton Value="Medical" GroupName="Attorney" Content="Medical"/>
+                <RadioButton Value="Financial" GroupName="Attorney" Content="Financial"/>
+            </StackLayout>
+        </Frame>
+        <Frame>
+            <VerticalStackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" >
+                    <Label Text="Templete" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,0,10,0"/>
+                    <Picker x:Name="templetePicker" VerticalTextAlignment="Start"   HorizontalOptions="FillAndExpand"  SelectedIndexChanged="TempletePicker_SelectedIndexChanged">
+                    </Picker>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"  HorizontalOptions="Fill">
+                    <Label Text="Expired At" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,0,10,0" />
+                    <DatePicker 
+                        HorizontalOptions="FillAndExpand" 
+                        VerticalOptions="Center"
+                        x:Name="datePickerOfExpiration"
+                        MinimumDate="{Binding MinDate}"
+                        MaximumDate="{Binding MaxDate}"
+                        Date="{Binding SelectedDate}"
+                        Format="D"
+                        BackgroundColor="White"
+                        DateSelected="datePickerOfExpiration_DateSelected"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" >
+                    <Label Text="Scope" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,0,10,0"/>
+                    <Picker x:Name="scopePicker" VerticalTextAlignment="Start"   HorizontalOptions="FillAndExpand"  SelectedIndexChanged="scopePicker_SelectedIndexChanged">
+                    </Picker>
+                </StackLayout>
+                
+
+            </VerticalStackLayout>
+
+        </Frame>
+        <Button  Text="Next" VerticalOptions="EndAndExpand" Clicked="Next_Clicked"/>
+    </StackLayout>
+</ContentPage>

@@ -10,6 +10,12 @@
     Shell.BackgroundColor="#512bd4"
     Shell.TitleColor="White">
 
+    <!--<ShellContent
+        Title="CreateDelegationPage"
+        ContentTemplate="{DataTemplate pages:CreateDelegationPage}"
+        FlyoutItemIsVisible="False"
+        Shell.FlyoutBehavior="Disabled"
+        Route="CreateDelegationPage" />-->
     <ShellContent
         Title="LoginPage"
         ContentTemplate="{DataTemplate pages:LoginPage}"
@@ -19,7 +25,7 @@
 
     <FlyoutItem Route="HomePage" FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent Title="Home" Icon="{x:Static icons:Constants.HomePage}" ContentTemplate="{DataTemplate pages:HomePage}"/>
-        <ShellContent Title="Document" Icon="{x:Static icons:Constants.DocumentPage}" ContentTemplate="{DataTemplate pages:DocumentPage}"/>
+        <ShellContent Title="MFA" Icon="{x:Static icons:Constants.DocumentPage}" ContentTemplate="{DataTemplate pages:DocumentPage}"/>
         <ShellContent Title="Settings" Icon="{x:Static icons:Constants.SettingPage}" ContentTemplate="{DataTemplate pages:SettingsPage}"/>
     </FlyoutItem>
 
