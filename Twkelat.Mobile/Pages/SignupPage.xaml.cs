@@ -1,17 +1,17 @@
-using Newtonsoft.Json;
-using Twkelat.Mobile.Models;
-using Twkelat.Mobile.Repository.IRepository;
+using Twkelat.Mobile.Models.Request;
+using Twkelat.Mobile.Models.Response;
+using Twkelat.Mobile.Services.IServices;
 using Twkelat.Mobile.UserControl;
 
 namespace Twkelat.Mobile.Pages;
 
 public partial class SignupPage : ContentPage
 {
-	public SignupPage(IUserRepository userRepository)
-	{
-		InitializeComponent();
-        _userRepository = userRepository;
-
+    private readonly IUserService _userService;
+    public SignupPage(IUserService userService)
+    {
+        InitializeComponent();
+        _userService = userService;
     }
     public string FirstName
     {
@@ -46,15 +46,15 @@ public partial class SignupPage : ContentPage
             usernameTXT.Text = value;
         }
     }
-    public string Email
+    public string CivilId
     {
         get
         {
-            return emailTXT.Text;
+            return civilIdTXT.Text;
         }
         set
         {
-            emailTXT.Text = value;
+            civilIdTXT.Text = value;
         }
     }
     public string Password
@@ -80,9 +80,6 @@ public partial class SignupPage : ContentPage
         }
     }
 
-
-    private readonly IUserRepository _userRepository;
-
     private async void Register_Clicked(object sender, EventArgs e)
     {
         if (firstNameValidator.IsNotValid)
@@ -97,12 +94,17 @@ public partial class SignupPage : ContentPage
         }
         if (usernameValidator.IsNotValid)
         {
-                await DisplayAlert("Error", "Username is required.", "Ok");
+            await DisplayAlert("Error", "Username is required.", "Ok");
             return;
         }
-        if (emailValidator.IsNotValid)
+        if (civilIdValidator.IsNotValid)
         {
-            foreach (var error in emailValidator.Errors)
+            if (civilIdValidator.Errors == null)
+            {
+                await DisplayAlert("Error", "Civil Id is required.", "Ok");
+                return;
+            }
+            foreach (var error in civilIdValidator?.Errors)
             {
                 await DisplayAlert("Error", error?.ToString(), "Ok");
             }
@@ -118,25 +120,31 @@ public partial class SignupPage : ContentPage
             await DisplayAlert("Error", "Password is not equal to password confirmation  .", "Ok");
             return;
         }
-     
-        
-        RegisterModel model = new() { Username = Username, Email = Email, Password = Password };
-        var resultJson = await _userRepository.Register(model);
+
+
+        RegisterRequestModel model = new() { Username = Username,
+            CivilId = CivilId, 
+            FirstName = FirstName, 
+            LastName = LastName,
+            Password = Password,
+        };
+        var apiResponse = await _userService.Register<AuthModelResponse>(model);
 
         if (Preferences.ContainsKey(nameof(App.credData)))
         {
             Preferences.Remove(nameof(App.credData));
         }
-        if (resultJson != null)
+        if (apiResponse.IsAuthenticated)
         {
-            var data = JsonConvert.SerializeObject(resultJson);
-            Preferences.Set(nameof(App.credData), data);
-            App.credData = resultJson;
+            Preferences.Set(SD.SD.SessionToken, apiResponse.Token);
+            Preferences.Set(nameof(App.credData), nameof(apiResponse));
+            App.credData = apiResponse;
+
             AppShell.Current.FlyoutHeader = new FlyoutHeaderControl();
             await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
         }
 
     }
 
-   
+
 }

@@ -5,13 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Twkelat.Mobile.Models
+namespace Twkelat.Mobile.Models.Request
 {
-    public class RegisterModel
+    public class RegisterRequestModel
     {
-        //[Required]
-        //public string Name { get; set; }
-        public string Email { get; set; }
+        public string CivilId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }

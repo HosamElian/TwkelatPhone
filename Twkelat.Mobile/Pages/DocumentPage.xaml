@@ -2,11 +2,17 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Twkelat.Mobile.Pages.DocumentPage"
-             Title="DocumentPage">
+             Title="Document">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <StackLayout Orientation="Vertical" HorizontalOptions="Fill" >
+            <Picker  x:Name="templeteViewer" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"   HorizontalOptions="FillAndExpand"  SelectedIndexChanged="templeteViewer_SelectedIndexChanged">
+            </Picker>
+        </StackLayout>
+        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" >
+            <Frame BorderColor="Grey">
+                <Label FontSize="Body" x:Name="entryView" FontAttributes="Bold" />
+            </Frame>
+        </StackLayout>
+
     </VerticalStackLayout>
 </ContentPage>

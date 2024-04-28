@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:Twkelat.Mobile.Views.Contorls"
              x:Class="Twkelat.Mobile.Pages.LoginPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="LoginPage">
@@ -36,19 +35,12 @@
                         <Frame Background="White" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5" >
                             <Image Source="person_icon.svg" Aspect="AspectFill" Margin="0"/>
                         </Frame>
-                        <Entry Text="{Binding Email}" x:Name="emailTXT"  Placeholder="Email" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0">
+                        <Entry Text="{Binding CivilId}" x:Name="civilIdTXT"  Placeholder="Civil Id" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0">
                             <Entry.Behaviors>
-                                <toolkit:MultiValidationBehavior
-                                     x:Name="emailValidator"
-                                     Flags="ValidateOnAttaching,ValidateOnValueChanged">
-                                    <toolkit:TextValidationBehavior
-                                        Flags="ValidateOnAttaching,ValidateOnValueChanged" 
-                                         MinimumLength="1"
-                                         toolkit:MultiValidationBehavior.Error="Email is required"/>
-                                    <toolkit:EmailValidationBehavior
-                                         Flags="ValidateOnAttaching,ValidateOnValueChanged" 
-                                        toolkit:MultiValidationBehavior.Error="Email Format is invalid"/>
-                                </toolkit:MultiValidationBehavior>
+                                <toolkit:TextValidationBehavior
+                                    x:Name="civilIdValidator"
+                                    Flags="ValidateOnAttaching,ValidateOnValueChanged" 
+                                    MinimumLength="10"/>
                             </Entry.Behaviors>
                         </Entry>
                     </StackLayout>

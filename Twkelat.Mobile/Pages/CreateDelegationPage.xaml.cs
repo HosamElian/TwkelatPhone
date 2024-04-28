@@ -1,4 +1,7 @@
+using Twkelat.Mobile.Enum;
 using Twkelat.Mobile.Models;
+using Twkelat.Mobile.Models.Request;
+using Twkelat.Mobile.Services.IServices;
 
 namespace Twkelat.Mobile.Pages;
 
@@ -6,36 +9,71 @@ public partial class CreateDelegationPage : ContentPage
 {
     DateTime MaxDate;
     DateTime MinDate;
-    int selectedTempleteId = 0;
-    int selectedScopeId = 0;
-    List<Templete> templetes;
-    List<Scope> scopes;
-    public CreateDelegationPage()
+    int _selectedTempleteId = 8;
+    List<Templete> _templetes;
+    private readonly IDelegationRepository _delegationRepository;
+
+    public CreateDelegationPage(IDelegationRepository delegationRepository)
     {
         InitializeComponent();
+        _delegationRepository = delegationRepository;
         MinDate = DateTime.Today;
         MaxDate = DateTime.Today.AddYears(1);
-        templetes = new List<Templete>()
-        {
-            new() {Id = 1, Name= "Templete1" },
-            new() { Id = 2, Name = "Templete2" },
-            new() {Id = 3, Name= "Templete3" }
-        };
+        _templetes = _delegationRepository.GetAllTemplete();
         templetePicker.Title = "Select a Templete";
-        templetePicker.ItemsSource = templetes;
+        templetePicker.ItemsSource = _templetes;
         templetePicker.ItemDisplayBinding = new Binding(nameof(Templete.Name));
-
-        scopes = new List<Scope>() 
-        {
-            new() {Id = 1, Name= "Scope1" },
-            new() { Id = 2, Name = "Scope2" },
-            new() {Id = 3, Name= "Scope3" }
-        };
-        scopePicker.Title = "Select a Scope";
-        scopePicker.ItemsSource = scopes;
-;       scopePicker.ItemDisplayBinding = new Binding(nameof(Scope.Name));
     }
 
+
+    private async void Next_Clicked(object sender, EventArgs e)
+    {
+        if (_selectedTempleteId == 0)
+        {
+            await DisplayAlert("Error", "Please Select Templete", "Ok");
+            return;
+        }
+        if (String.IsNullOrWhiteSpace(scopeTXT.Text))
+        {
+            await DisplayAlert("Error", "Please Write The Scope", "Ok");
+            return;
+        }
+
+        if (String.IsNullOrWhiteSpace(civilIdTXT.Text))
+        {
+            await DisplayAlert("Error", "Please Write the Civil Id", "Ok");
+            return;
+        }
+
+        var data = new CreateBlockRequest()
+        {
+            TempleteId = _selectedTempleteId,
+            CreateByCivilId = App.currentCivilId,
+            CreateForCivilId = civilIdTXT.Text,
+            ExpirationDate = datePickerOfExpiration.Date,
+            Scope = scopeTXT.Text,
+            PowerAttorneyTypeId = PublicRB.IsChecked ? (int)PowerAttonaryEnum.Public : (int)PowerAttonaryEnum.Private,
+        };
+
+        App.createBlockRequest = data;
+        await Shell.Current.GoToAsync($"{nameof(ConfirmDelegationPage)}?TempleteId={(int)_selectedTempleteId}");
+    }
+    private void PublicRB_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        _selectedTempleteId = 8;
+        templetePicker.Title = "";
+        templetePicker.IsEnabled = false;
+
+
+    }
+    private void PrivateRB_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+
+        templetePicker.Title = "";
+        _selectedTempleteId = 0;
+        templetePicker.IsEnabled = true;
+
+    }
     private async void datePickerOfExpiration_DateSelected(object sender, DateChangedEventArgs e)
     {
         if (datePickerOfExpiration.Date < MinDate)
@@ -51,31 +89,13 @@ public partial class CreateDelegationPage : ContentPage
         await DisplayAlert("Good Date", "Good Date Selection", "ok");
 
     }
-
-    private async void Next_Clicked(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync($"{nameof(ConfirmDelegationPage)}");
-
-    }
-
     private void TempletePicker_SelectedIndexChanged(object sender, EventArgs e)
     {
         var picker = (Picker)sender;
         int selectedIndex = picker.SelectedIndex;
         if (selectedIndex != -1)
         {
-            selectedTempleteId = templetes[selectedIndex].Id;
-            picker.SelectedIndex = selectedIndex;
-        }
-    }
-
-    private void scopePicker_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        var picker = (Picker)sender;
-        int selectedIndex = picker.SelectedIndex;
-        if (selectedIndex != -1)
-        {
-            selectedScopeId = scopes[selectedIndex].Id;
+            _selectedTempleteId = _templetes[selectedIndex].Id;
             picker.SelectedIndex = selectedIndex;
         }
     }

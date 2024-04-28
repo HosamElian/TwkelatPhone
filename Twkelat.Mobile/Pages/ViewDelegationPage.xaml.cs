@@ -1,5 +1,6 @@
-using Twkelat.Mobile.Models;
-using Twkelat.Mobile.Repositories;
+using Twkelat.Mobile.Models.Request;
+using Twkelat.Mobile.Models.ViewModels;
+using Twkelat.Mobile.Services.IServices;
 
 namespace Twkelat.Mobile.Pages;
 
@@ -7,11 +8,18 @@ namespace Twkelat.Mobile.Pages;
 public partial class ViewDelegationPage : ContentPage
 {
     private DelegationVM? _delegationVM;
-    public ViewDelegationPage()
-	{
-		InitializeComponent();
-	}
-    
+    private string? _oldValue;
+    private readonly IDelegationRepository _delegationRepository;
+    private readonly IDelegationService _delegationService;
+
+    public ViewDelegationPage(IDelegationRepository delegationRepository, 
+                              IDelegationService delegationService)
+    {
+        InitializeComponent();
+        _delegationRepository = delegationRepository;
+        _delegationService = delegationService;
+    }
+
     public string TempleteName
     {
         get
@@ -48,7 +56,6 @@ public partial class ViewDelegationPage : ContentPage
         }
     }
 
-
     public string ExpirationDate
     {
         get
@@ -64,20 +71,76 @@ public partial class ViewDelegationPage : ContentPage
     {
         set
         {
-            _delegationVM = DelegartionRepository.GetContactById(int.Parse(value));
-            if (_delegationVM is not null)
+            try
             {
-                TempleteName  = _delegationVM.TempleteName ;
-                CommissionerName = _delegationVM.CommissionerName ;
-                 Hash = BitConverter.ToString( _delegationVM.Hash)  ?? "";
-                ExpirationDate =  _delegationVM.ExpirationDate.ToString() ;
-                isActive.IsChecked = _delegationVM.ExpirationDate < DateTime.Today;
+                _delegationVM = _delegationRepository.GetbyId(int.Parse(value));
+                if (_delegationVM is not null)
+                {
+                    TempleteName = _delegationVM.TempleteName;
+                    CommissionerName = _delegationVM.CommissionerName;
+                    Hash = BitConverter.ToString(_delegationVM.Hash) ?? "";
+                    ExpirationDate = _delegationVM.ExpirationDate.ToString();
+                    isActive.IsChecked = _delegationVM.ExpirationDate < DateTime.Today;
+                    btnSaved.IsVisible = false;
+                }
+            }catch (Exception ex)
+            {
             }
+            
         }
     }
 
     private async void btnCancel_Clicked(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync("..");
+    }
+
+    private void isActive_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        var chechbox = (CheckBox)sender;
+        _oldValue = entryExpirationDate.Text;
+        if (chechbox.IsChecked == false)
+        {
+            entryExpirationDate.Text = DateTime.Today.AddDays(-1).ToString();
+        }
+        else
+        {
+            entryExpirationDate.Text = DateTime.Today.AddDays(1).ToString();
+        }
+        btnSaved.IsVisible = true;
+    }
+
+    private async void btnSaved_Clicked(object sender, EventArgs e)
+    {
+        if (btnSaved.IsVisible)
+        {
+            try
+            {
+                var saved = await _delegationRepository.UpdateModel(new ChangeBlockStateRequest
+                {
+                    Id = _delegationVM.Id,
+                    ExpirationDate = Convert.ToDateTime(ExpirationDate),
+                    State = _delegationVM.ExpirationDate > DateTime.Now,
+                });
+                if (saved)
+                {
+                    await DisplayAlert("Notification", "Saving Succefuly", "ok");
+                    await Shell.Current.GoToAsync("..");
+                }
+                else
+                {
+                    await DisplayAlert("Notification", "Saving Faild", "ok");
+                    await Shell.Current.GoToAsync("..");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Notification", ex.Message, "ok");
+
+            }
+
+        }
+
     }
 }

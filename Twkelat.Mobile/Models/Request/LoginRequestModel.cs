@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Twkelat.Mobile.Models
+namespace Twkelat.Mobile.Models.Request
 {
-    public class LoginModel
+    public class LoginRequestModel
     {
         [Required]
-        public string Email { get; set; }
+        public string CivilId { get; set; }
         [Required]
         public string Password { get; set; }
     }

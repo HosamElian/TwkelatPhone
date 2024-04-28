@@ -24,9 +24,9 @@
         Route="LoginPage" />
 
     <FlyoutItem Route="HomePage" FlyoutDisplayOptions="AsMultipleItems">
-        <ShellContent Title="Home" Icon="{x:Static icons:Constants.HomePage}" ContentTemplate="{DataTemplate pages:HomePage}"/>
-        <ShellContent Title="MFA" Icon="{x:Static icons:Constants.DocumentPage}" ContentTemplate="{DataTemplate pages:DocumentPage}"/>
-        <ShellContent Title="Settings" Icon="{x:Static icons:Constants.SettingPage}" ContentTemplate="{DataTemplate pages:SettingsPage}"/>
+        <ShellContent Title="Home" Icon="{x:Static icons:SD.HomePage}" ContentTemplate="{DataTemplate pages:HomePage}"/>
+        <ShellContent Title="Document" Icon="{x:Static icons:SD.DocumentPage}" ContentTemplate="{DataTemplate pages:DocumentPage}"/>
+        <ShellContent Title="Settings" Icon="{x:Static icons:SD.SettingPage}" ContentTemplate="{DataTemplate pages:SettingsPage}"/>
     </FlyoutItem>
 
     <Shell.FlyoutFooter>

@@ -3,10 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Twkelat.Mobile.Pages.SettingsPage"
              Title="SettingsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout VerticalOptions="Center">
+        <StackLayout Background="AliceBlue" Padding="10">
+            <Label
+                Text="Change Your Secret Code"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+            <Entry HorizontalTextAlignment="Center" IsPassword="True"/>
+            
+            <Button Text="Confirm"  Clicked="ConirmBT_Clicked"/>
+
+        </StackLayout>
     </VerticalStackLayout>
 </ContentPage>

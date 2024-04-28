@@ -8,13 +8,14 @@
      RowDefinitions="90, *, 50"
      ColumnDefinitions="*">
         <Label Grid.Row="0" Grid.Column="0" Text="Delegation Confirmation" FontSize="Title" VerticalOptions="Center" HorizontalOptions="Center"  FontAttributes="Bold"/>
-        <Frame 
-            BorderColor="Red" 
-            Grid.Row="1"
-            Grid.Column="0"
-            >
-            <Label FontSize="Body" x:Name="entryConfirmText" FontAttributes="Bold" Text="By Approving asfvfbnghbbdf Please Sign to confirm"/>
-        </Frame>
+        <ScrollView Orientation="Vertical"
+                    Grid.Row="1"
+                    Grid.Column="0">
+            <Frame BorderColor="Red">
+                <Label FontSize="Body" x:Name="entryConfirmText" FontAttributes="Bold" />
+            </Frame>
+        </ScrollView>
+
         <Button Text="Sign and Confirm" Grid.Row="2" Grid.Column="0" Clicked="Button_Clicked"/>
 
     </Grid>

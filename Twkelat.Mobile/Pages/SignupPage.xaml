@@ -97,18 +97,15 @@
                         <Frame Background="White" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5" >
                             <Image Source="person_icon.svg" Aspect="AspectFill" Margin="0"/>
                         </Frame>
-                        <Entry Text="{Binding Email}" x:Name="emailTXT"  Placeholder="Email" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0">
+                        <Entry Text="{Binding CivilId}" x:Name="civilIdTXT"  Placeholder="Civil Id" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0">
                             <Entry.Behaviors>
                                 <toolkit:MultiValidationBehavior
-                                     x:Name="emailValidator"
+                                     x:Name="civilIdValidator"
                                      Flags="ValidateOnAttaching,ValidateOnValueChanged">
                                     <toolkit:TextValidationBehavior
                                         Flags="ValidateOnAttaching,ValidateOnValueChanged" 
-                                         MinimumLength="1"
-                                         toolkit:MultiValidationBehavior.Error="Email is required"/>
-                                    <toolkit:EmailValidationBehavior
-                                         Flags="ValidateOnAttaching,ValidateOnValueChanged" 
-                                        toolkit:MultiValidationBehavior.Error="Email Format is invalid"/>
+                                         MinimumLength="10"
+                                         toolkit:MultiValidationBehavior.Error="Civil Id is required"/>
                                 </toolkit:MultiValidationBehavior>
                             </Entry.Behaviors>
                         </Entry>

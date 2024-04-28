@@ -8,8 +8,12 @@
         <Frame>
             <VerticalStackLayout>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" >
-                    <Entry HorizontalOptions="FillAndExpand" Placeholder="Search User"/>
-                    <Button  HorizontalOptions="End" Text="Search"/>
+                    <Entry HorizontalOptions="FillAndExpand" 
+                           Placeholder=" User Civil Id" 
+                           HorizontalTextAlignment="Center"
+                           x:Name="civilIdTXT"
+                           PlaceholderColor="Grey"/>
+                    <!--<Button  HorizontalOptions="End" Text="Search"/>-->
                 </StackLayout>
                
             </VerticalStackLayout>
@@ -19,16 +23,16 @@
                 <Frame>
                     <Label Text="Select The power attorney"  HorizontalOptions="Center"/>
                 </Frame>
-                <RadioButton  Value="General" GroupName="Attorney"  Content="General"/>
-                <RadioButton Value="Medical" GroupName="Attorney" Content="Medical"/>
-                <RadioButton Value="Financial" GroupName="Attorney" Content="Financial"/>
+                <RadioButton IsChecked="True"  Value="1" x:Name="PublicRB" GroupName="PowerAttorney"  Content="Public" CheckedChanged="PublicRB_CheckedChanged"/>
+                <RadioButton IsChecked="False" Value="2" x:Name="rivateRB" GroupName="PowerAttorney" Content="Private" CheckedChanged="PrivateRB_CheckedChanged"/>
+
             </StackLayout>
         </Frame>
         <Frame>
             <VerticalStackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="Center">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" >
                     <Label Text="Templete" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,0,10,0"/>
-                    <Picker x:Name="templetePicker" VerticalTextAlignment="Start"   HorizontalOptions="FillAndExpand"  SelectedIndexChanged="TempletePicker_SelectedIndexChanged">
+                    <Picker IsEnabled="False" x:Name="templetePicker" VerticalTextAlignment="Start"   HorizontalOptions="FillAndExpand"  SelectedIndexChanged="TempletePicker_SelectedIndexChanged">
                     </Picker>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal"  HorizontalOptions="Fill">
@@ -47,8 +51,7 @@
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" >
                     <Label Text="Scope" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,0,10,0"/>
-                    <Picker x:Name="scopePicker" VerticalTextAlignment="Start"   HorizontalOptions="FillAndExpand"  SelectedIndexChanged="scopePicker_SelectedIndexChanged">
-                    </Picker>
+                    <Entry x:Name="scopeTXT" VerticalTextAlignment="Start"   HorizontalOptions="FillAndExpand"/>
                 </StackLayout>
                 
 

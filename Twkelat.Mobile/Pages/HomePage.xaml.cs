@@ -1,25 +1,24 @@
+using AutoMapper;
 using System.Collections.ObjectModel;
-using Twkelat.Mobile.Models;
+using System.Text.Json;
+using Twkelat.Mobile.Models.Response;
+using Twkelat.Mobile.Models.ViewModels;
 using Twkelat.Mobile.Repositories;
+using Twkelat.Mobile.Services.IServices;
 
 namespace Twkelat.Mobile.Pages;
 
 public partial class HomePage : ContentPage
 {
-    public HomePage()
+    private readonly IDelegationRepository _delegationRepository;
+
+    public HomePage(IDelegationRepository delegationRepository)
     {
         InitializeComponent();
+        _delegationRepository = delegationRepository;
         SearchBar.Text = string.Empty;
         LoadDelegations();
     }
-
-    private void Button_Clicked(object sender, EventArgs e)
-    {
-        Shell.Current.GoToAsync($"{nameof(CreateDelegationPage)}");
-
-    }
-
-
 
     private void listDelegations_ItemTapped(object sender, ItemTappedEventArgs e)
     {
@@ -32,29 +31,19 @@ public partial class HomePage : ContentPage
 
     }
 
-    private void Delete_Clicked(object sender, EventArgs e)
+    private async Task LoadDelegations()
     {
-        MenuItem? menuItem = sender as MenuItem;
-        if (menuItem != null)
+        var delegationVMs = await _delegationRepository.GetDelegationVMs();
+        if(delegationVMs == null)
         {
-            DelegationVM? delegationVM = menuItem.CommandParameter as DelegationVM;
-            if (delegationVM != null)
-            {
-                DelegartionRepository.RemoveContact(delegationVM.Id);
-                LoadDelegations();
-            }
+            delegationVMs = new List<DelegationVM>();
         }
-    }
-
-    private void LoadDelegations()
-    {
-        var delegations = new ObservableCollection<DelegationVM>(DelegartionRepository.GetAllDelegations());
-        listDelegations.ItemsSource = delegations;
+        listDelegations.ItemsSource = delegationVMs;
     }
 
     private async void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
-        var delegation = new ObservableCollection<DelegationVM>(DelegartionRepository.SearchContacts(((SearchBar)sender).Text));
+        var delegation = new ObservableCollection<DelegationVM>(_delegationRepository.SearchContacts(((SearchBar)sender).Text));
         if (delegation != null)
         {
             listDelegations.ItemsSource = delegation;
@@ -70,6 +59,32 @@ public partial class HomePage : ContentPage
         if (listDelegations.SelectedItem != null)
         {
             await Shell.Current.GoToAsync($"{nameof(ViewDelegationPage)}?Id={((DelegationVM)listDelegations.SelectedItem).Id}");
+        }
+    }
+
+    private async void meDelegationCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        var data =  _delegationRepository.Filter(me:meDelegationCheckBox.IsChecked, other:otherDelegationCheckBox.IsChecked);
+        if(data == null)
+        {
+            await LoadDelegations();
+        }
+        else
+        {
+            listDelegations.ItemsSource = data;
+        }
+    }
+
+    private async void otherDelegationCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        var data = _delegationRepository.Filter(me: meDelegationCheckBox.IsChecked, other: otherDelegationCheckBox.IsChecked);
+        if (data == null)
+        {
+            await LoadDelegations();
+        }
+        else
+        {
+            listDelegations.ItemsSource = data;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.OS;
 using Android.Runtime;
 
 namespace Twkelat.Mobile
@@ -12,5 +13,6 @@ namespace Twkelat.Mobile
         }
 
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+
     }
 }

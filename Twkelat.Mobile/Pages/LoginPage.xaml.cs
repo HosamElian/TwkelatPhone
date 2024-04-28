@@ -1,28 +1,28 @@
-using Newtonsoft.Json;
-using Twkelat.Mobile.Models;
-using Twkelat.Mobile.Repository.IRepository;
+using Twkelat.Mobile.Models.Request;
+using Twkelat.Mobile.Models.Response;
+using Twkelat.Mobile.Services.IServices;
 using Twkelat.Mobile.UserControl;
-using Twkelat.Mobile.ViewModels;
 
 namespace Twkelat.Mobile.Pages;
 
 public partial class LoginPage : ContentPage
 {
-    public LoginPage(IUserRepository userRepository)
+    private readonly IUserService _userService;
+
+    public LoginPage(IUserService userService)
     {
         InitializeComponent();
-        _userRepository = userRepository;
-
+        _userService = userService;
     }
-    public string Email
+    public string CivilId
     {
         get
         {
-            return emailTXT.Text;
+            return civilIdTXT.Text;
         }
         set
         {
-            emailTXT.Text = value;
+            civilIdTXT.Text = value;
         }
     }
     public string Password
@@ -37,18 +37,13 @@ public partial class LoginPage : ContentPage
         }
     }
 
-    private readonly IUserRepository _userRepository;
-
     private async void Login(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
 
-        //if (emailValidator.IsNotValid)
+        //if (civilIdValidator.IsNotValid)
         //{
-        //    foreach (var error in emailValidator.Errors)
-        //    {
-        //        await DisplayAlert("Error", error?.ToString(), "Ok");
-        //    }
+        //    await DisplayAlert("Error", "Civil Id is required.", "Ok");
         //    return;
         //}
         //if (passwordValidator.IsNotValid)
@@ -56,18 +51,18 @@ public partial class LoginPage : ContentPage
         //    await DisplayAlert("Error", "Password is required.", "Ok");
         //    return;
         //}
-        //LoginModel model = new() { Email = Email, Password = Password };
-        //var resultJson = await _userRepository.Login(model);
+        //var apiResponse = await _userService.Login<AuthModelResponse>(new LoginRequestModel() { CivilId = CivilId, Password = Password });
 
         //if (Preferences.ContainsKey(nameof(App.credData)))
         //{
         //    Preferences.Remove(nameof(App.credData));
         //}
-        //if (resultJson != null)
+        //if (apiResponse.IsAuthenticated)
         //{
-        //    var data = JsonConvert.SerializeObject(resultJson);
-        //    Preferences.Set(nameof(App.credData), data);
-        //    App.credData = resultJson;
+        //    Preferences.Set(SD.SD.SessionToken, apiResponse.Token);
+        //    Preferences.Set(nameof(App.credData), nameof(apiResponse));
+        //    App.credData = apiResponse;
+
         //    AppShell.Current.FlyoutHeader = new FlyoutHeaderControl();
         //    await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
         //}
