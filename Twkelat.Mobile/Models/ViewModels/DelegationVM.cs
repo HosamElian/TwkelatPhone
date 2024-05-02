@@ -13,11 +13,11 @@
         {
             get
             {
-                if (ExpirationDate < DateTime.Today)
-                    return "#008800";
+                if (ExpirationDate < DateTime.Now)
+                    return "#FF0000";
                 else
                 {
-                    return "#FF0000";
+                    return "#008800";
                 }
             }
             set

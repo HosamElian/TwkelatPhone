@@ -63,31 +63,25 @@ public partial class CreateDelegationPage : ContentPage
         _selectedTempleteId = 8;
         templetePicker.Title = "";
         templetePicker.IsEnabled = false;
-
-
     }
     private void PrivateRB_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-
         templetePicker.Title = "";
         _selectedTempleteId = 0;
         templetePicker.IsEnabled = true;
-
     }
     private async void datePickerOfExpiration_DateSelected(object sender, DateChangedEventArgs e)
     {
         if (datePickerOfExpiration.Date < MinDate)
         {
-            await DisplayAlert("Wrong Date", "Selected date Can't be less than today", "ok");
+            await DisplayAlert("Invalid Date", "The date Can't be less than today", "ok");
             datePickerOfExpiration.Date = MinDate;
         }
         if (datePickerOfExpiration.Date > MaxDate)
         {
-            await DisplayAlert("Wrong Date", "Selected date Can't be More than Year", "ok");
+            await DisplayAlert("Invalid Date", "The date Can't be More than Year", "ok");
             datePickerOfExpiration.Date = MaxDate;
         }
-        await DisplayAlert("Good Date", "Good Date Selection", "ok");
-
     }
     private void TempletePicker_SelectedIndexChanged(object sender, EventArgs e)
     {

@@ -46,7 +46,7 @@ public partial class ConfirmDelegationPage : ContentPage
         }
         else
         {
-            string codeRequest = await DisplayPromptAsync("Secret Code", "Write you Secret Code");
+            string codeRequest = await DisplayPromptAsync("Authentication Code", "Write you Authentication Code");
             var response = _delegationRepository.CheckSecretKey(codeRequest).Result;
             if(response)
             {

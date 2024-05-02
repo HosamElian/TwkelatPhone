@@ -86,7 +86,7 @@ public partial class ViewDelegationPage : ContentPage
             }catch (Exception ex)
             {
             }
-            
+            OnPropertyChanged();
         }
     }
 
