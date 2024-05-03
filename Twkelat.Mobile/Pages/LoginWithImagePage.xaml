@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Twkelat.Mobile.Pages.LoginWithImagePage"
+             Title="Welcome on Twkelate App">
+    <VerticalStackLayout Spacing="5" Margin="10">
+       
+        <VerticalStackLayout Padding="10,30,10,10" Spacing="10">
+            <Image Source="login_icon.jpeg" HeightRequest="500"/>
+            <Button Text="Login With Hawity" Clicked="Button_Clicked"/> 
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

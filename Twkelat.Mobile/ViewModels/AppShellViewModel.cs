@@ -16,8 +16,9 @@ namespace Twkelat.Mobile.ViewModels
             if (Preferences.ContainsKey(nameof(App.credData)))
             {
                 Preferences.Remove(nameof(App.credData));
-                await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-            }
-        }
+                App.createBlockRequest = new();
+			}
+			await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+		}
     }
 }

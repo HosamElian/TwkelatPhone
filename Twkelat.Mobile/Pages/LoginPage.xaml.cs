@@ -39,33 +39,33 @@ public partial class LoginPage : ContentPage
 
     private async void Login(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
 
-        //if (civilIdValidator.IsNotValid)
-        //{
-        //    await DisplayAlert("Error", "Civil Id is required.", "Ok");
-        //    return;
-        //}
-        //if (passwordValidator.IsNotValid)
-        //{
-        //    await DisplayAlert("Error", "Password is required.", "Ok");
-        //    return;
-        //}
-        //var apiResponse = await _userService.Login<AuthModelResponse>(new LoginRequestModel() { CivilId = CivilId, Password = Password });
+        if (civilIdValidator.IsNotValid)
+        {
+            await DisplayAlert("Error", "Civil Id is required.", "Ok");
+            return;
+        }
+        if (passwordValidator.IsNotValid)
+        {
+            await DisplayAlert("Error", "Password is required.", "Ok");
+            return;
+        }
+        var apiResponse = await _userService.Login<AuthModelResponse>(new LoginRequestModel() { CivilId = CivilId, Password = Password });
 
-        //if (Preferences.ContainsKey(nameof(App.credData)))
-        //{
-        //    Preferences.Remove(nameof(App.credData));
-        //}
-        //if (apiResponse.IsAuthenticated)
-        //{
-        //    Preferences.Set(SD.SD.SessionToken, apiResponse.Token);
-        //    Preferences.Set(nameof(App.credData), nameof(apiResponse));
-        //    App.credData = apiResponse;
+        if (Preferences.ContainsKey(nameof(App.credData)))
+        {
+            Preferences.Remove(nameof(App.credData));
+        }
+        if (apiResponse.IsAuthenticated)
+        {
+            Preferences.Set(SD.SD.SessionToken, apiResponse.Token);
+            Preferences.Set(nameof(App.credData), nameof(apiResponse));
+            App.credData = apiResponse;
+            App.currentCivilId = apiResponse.CivilId;
 
-        //    AppShell.Current.FlyoutHeader = new FlyoutHeaderControl();
-        //    await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-        //}
+            AppShell.Current.FlyoutHeader = new FlyoutHeaderControl();
+            await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+        }
 
     }
 

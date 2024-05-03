@@ -9,7 +9,7 @@
                 Text="Change Your Authentication Code"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center" />
-            <Entry HorizontalTextAlignment="Center" IsPassword="True"/>
+            <Entry HorizontalTextAlignment="Center" x:Name="newKeyTXT" IsPassword="True"/>
             
             <Button Text="Confirm"  Clicked="ConirmBT_Clicked"/>
 

@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using Twkelat.Mobile.Models.Request;
 using Twkelat.Mobile.Models.ViewModels;
 using Twkelat.Mobile.Services.IServices;
@@ -79,9 +81,23 @@ public partial class ViewDelegationPage : ContentPage
                     TempleteName = _delegationVM.TempleteName;
                     CommissionerName = _delegationVM.CommissionerName;
                     Hash = BitConverter.ToString(_delegationVM.Hash) ?? "";
-                    ExpirationDate = _delegationVM.ExpirationDate.ToString();
-                    isActive.IsChecked = _delegationVM.ExpirationDate < DateTime.Today;
-                    btnSaved.IsVisible = false;
+                    ExpirationDate =  _delegationVM.ExpirationDateAsString;
+                    isActive.IsChecked = DateOnly.FromDateTime(_delegationVM.ExpirationDate) < DateOnly.FromDateTime(DateTime.Today);
+                    isActive.IsVisible = _delegationVM.FromMe;
+                    isActiveOther.IsVisible = !_delegationVM.FromMe;
+					if(isActiveOther.IsVisible)
+                    {
+						if (DateOnly.FromDateTime(_delegationVM.ExpirationDate) < DateOnly.FromDateTime(DateTime.Today))
+                        {
+                            isActiveOther.Text = "Expired";
+                        }
+                        else
+                        {
+							isActiveOther.Text = "Active";
+						}
+
+					}
+					btnSaved.IsVisible = false;
                 }
             }catch (Exception ex)
             {
@@ -101,11 +117,11 @@ public partial class ViewDelegationPage : ContentPage
         _oldValue = entryExpirationDate.Text;
         if (chechbox.IsChecked == false)
         {
-            entryExpirationDate.Text = DateTime.Today.AddDays(-1).ToString();
+            entryExpirationDate.Text = DateTime.Today.AddDays(-1).ToShortDateString();
         }
         else
         {
-            entryExpirationDate.Text = DateTime.Today.AddDays(1).ToString();
+            entryExpirationDate.Text = DateTime.Today.AddDays(1).ToShortDateString();
         }
         btnSaved.IsVisible = true;
     }
@@ -124,20 +140,19 @@ public partial class ViewDelegationPage : ContentPage
                 });
                 if (saved)
                 {
-                    await DisplayAlert("Notification", "Saving Succefuly", "ok");
-                    await Shell.Current.GoToAsync("..");
+					await Toast.Make("Saving Succefuly", ToastDuration.Short).Show();
+					await Shell.Current.GoToAsync("..");
                 }
                 else
                 {
-                    await DisplayAlert("Notification", "Saving Faild", "ok");
+					await Toast.Make("Saving Faild", ToastDuration.Short).Show();
                     await Shell.Current.GoToAsync("..");
                 }
 
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Notification", ex.Message, "ok");
-
+				await Toast.Make(ex.Message.ToString(), ToastDuration.Short).Show();
             }
 
         }

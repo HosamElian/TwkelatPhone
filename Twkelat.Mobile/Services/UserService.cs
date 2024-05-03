@@ -10,7 +10,27 @@ namespace Twkelat.Mobile.Services
         {
             baseUrl = SD.SD.BaseURL;
         }
-        public Task<T> Login<T>(LoginRequestModel dto)
+
+		public Task<T> CheckCode<T>(CheckRequestDTO dto)
+		{
+			return SendAsync<T>(new APIRequest
+			{
+				ApiType = SD.SD.ApiType.POST,
+				Data = dto,
+				Url = baseUrl + "Auth/checkCode",
+			});
+		}
+		public Task<T> ChangeCode<T>(ChangeCodeRequestDTO dto)
+		{
+			return SendAsync<T>(new APIRequest
+			{
+				ApiType = SD.SD.ApiType.POST,
+				Data = dto,
+				Url = baseUrl + "Auth/changeCode",
+			});
+		}
+
+		public Task<T> Login<T>(LoginRequestModel dto)
         {
             return SendAsync<T>(new APIRequest
             {

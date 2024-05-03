@@ -1,4 +1,7 @@
 using AutoMapper;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using Microsoft.Toolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Text.Json;
 using Twkelat.Mobile.Models.Response;
@@ -17,15 +20,16 @@ public partial class HomePage : ContentPage
         InitializeComponent();
         _delegationRepository = delegationRepository;
         SearchBar.Text = string.Empty;
-        LoadDelegations();
+         LoadDelegations();
     }
 
-    private void listDelegations_ItemTapped(object sender, ItemTappedEventArgs e)
-    {
-        listDelegations.SelectedItem = null;
-    }
+	private async void listDelegations_Refreshing(object sender, EventArgs e)
+	{
+		await LoadDelegations();
 
-    private void btnAdd_Clicked(object sender, EventArgs e)
+	}
+
+	private void btnAdd_Clicked(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync(nameof(CreateDelegationPage));
 
@@ -39,20 +43,10 @@ public partial class HomePage : ContentPage
             delegationVMs = new List<DelegationVM>();
         }
         listDelegations.ItemsSource = delegationVMs;
-    }
+        listDelegations.IsRefreshing = false;
 
-    private async void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        var delegation = new ObservableCollection<DelegationVM>(_delegationRepository.SearchContacts(((SearchBar)sender).Text));
-        if (delegation != null)
-        {
-            listDelegations.ItemsSource = delegation;
-        }
-        else
-        {
-            await DisplayAlert("NOT FOUND", "no data exist", "ok");
-        }
-    }
+	}
+
 
     private async void listDelegations_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
@@ -61,8 +55,25 @@ public partial class HomePage : ContentPage
             await Shell.Current.GoToAsync($"{nameof(ViewDelegationPage)}?Id={((DelegationVM)listDelegations.SelectedItem).Id}");
         }
     }
+	private void listDelegations_ItemTapped(object sender, ItemTappedEventArgs e)
+	{
+		listDelegations.SelectedItem = null;
+	}
+	private async void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+	{
+		var delegation = new ObservableCollection<DelegationVM>(_delegationRepository.SearchContacts(((SearchBar)sender).Text));
+		if (delegation != null)
+		{
+			listDelegations.ItemsSource = delegation;
+		}
+		else
+		{
+			await Toast.Make("no data match search item", ToastDuration.Short).Show();
 
-    private async void meDelegationCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+			//await DisplayAlert("NOT FOUND", "no data exist", "ok");
+		}
+	}
+	private async void meDelegationCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         var data =  _delegationRepository.Filter(me:meDelegationCheckBox.IsChecked, other:otherDelegationCheckBox.IsChecked);
         if(data == null)
@@ -87,4 +98,6 @@ public partial class HomePage : ContentPage
             listDelegations.ItemsSource = data;
         }
     }
+
+
 }

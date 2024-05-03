@@ -58,6 +58,9 @@
 
 	<ItemGroup>
 	  <None Remove="Platforms\Android\Resources\xml\network_security_config.xml" />
+	  <None Remove="Resources\Images\abc.svg" />
+	  <None Remove="Resources\Images\email.svg" />
+	  <None Remove="Resources\Images\identity.svg" />
 	  <None Remove="Resources\Images\password_icon.svg" />
 	  <None Remove="Resources\Images\person_icon.svg" />
 	</ItemGroup>
@@ -89,6 +92,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\LoginWithImagePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\SettingsPage.xaml">

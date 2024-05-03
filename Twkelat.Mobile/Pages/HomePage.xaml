@@ -25,7 +25,6 @@
             </HorizontalStackLayout>
             <HorizontalStackLayout>
                 <Label Text="Other" 
-                        
                        FontSize="Header" 
                        VerticalOptions="Center"/>
                 <CheckBox IsChecked="False" x:Name="otherDelegationCheckBox" VerticalOptions="Center" CheckedChanged="otherDelegationCheckBox_CheckedChanged"/>
@@ -39,7 +38,9 @@
             SeparatorColor="Silver"
             RowHeight="65"
             ItemSelected="listDelegations_ItemSelected"
+            IsPullToRefreshEnabled="True"
             ItemTapped="listDelegations_ItemTapped"
+            Refreshing="listDelegations_Refreshing"
           >
             <ListView.ItemTemplate>
                 <DataTemplate>

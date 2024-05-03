@@ -10,11 +10,13 @@ namespace Twkelat.Mobile
             InitializeComponent();
             this.BindingContext = new AppShellViewModel();
             Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
-            Routing.RegisterRoute(nameof(SignupPage), typeof(SignupPage));
+			Routing.RegisterRoute(nameof(SignupPage), typeof(SignupPage));
             Routing.RegisterRoute(nameof(CreateDelegationPage), typeof(CreateDelegationPage));
             Routing.RegisterRoute(nameof(ConfirmDelegationPage), typeof(ConfirmDelegationPage));
             Routing.RegisterRoute(nameof(ViewDelegationPage), typeof(ViewDelegationPage));
-        }
+            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+            Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
+		}
 
     }
 }

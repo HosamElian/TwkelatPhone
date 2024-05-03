@@ -26,7 +26,8 @@ namespace Twkelat.Mobile
             // Pages
             builder.Services.AddSingleton<HomePage>();
             builder.Services.AddSingleton<LoginPage>();
-            builder.Services.AddSingleton<DocumentPage>();
+            builder.Services.AddSingleton<LoginWithImagePage>();
+			builder.Services.AddSingleton<DocumentPage>();
             builder.Services.AddSingleton<SettingsPage>();
             builder.Services.AddSingleton<SignupPage>();
             builder.Services.AddSingleton<CreateDelegationPage>();
@@ -34,8 +35,8 @@ namespace Twkelat.Mobile
             builder.Services.AddSingleton<ViewDelegationPage>();
 
 
-            // Services
-            builder.Services.AddSingleton<HttpClient>();
+			// Services
+			builder.Services.AddSingleton<HttpClient>();
             builder.Services.AddScoped<IBaseService, BaseService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IDelegationService, DelegationService>();

@@ -9,8 +9,7 @@ namespace Twkelat.Mobile
     {
         public static AuthModelResponse credData;
         public static CreateBlockRequest createBlockRequest;
-        public static string secretCode = "123";
-        public static string currentCivilId = "1234567890";
+        public static string currentCivilId = string.Empty;
 
 
         public App()

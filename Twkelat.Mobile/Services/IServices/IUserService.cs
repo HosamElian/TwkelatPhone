@@ -11,5 +11,7 @@ namespace Twkelat.Mobile.Services.IServices
     {
         Task<T> Login<T>(LoginRequestModel dto);
         Task<T> Register<T>(RegisterRequestModel dto);
-    }
+        Task<T> CheckCode<T>(CheckRequestDTO dto);
+        Task<T> ChangeCode<T>(ChangeCodeRequestDTO dto);
+	}
 }

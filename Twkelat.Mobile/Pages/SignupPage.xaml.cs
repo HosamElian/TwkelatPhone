@@ -13,26 +13,26 @@ public partial class SignupPage : ContentPage
         InitializeComponent();
         _userService = userService;
     }
-    public string FirstName
+    public string Name
     {
         get
         {
-            return firstNameTXT.Text;
+            return nameTXT.Text;
         }
         set
         {
-            firstNameTXT.Text = value;
+			nameTXT.Text = value;
         }
     }
-    public string LastName
+    public string Email
     {
         get
         {
-            return lastNameTXT.Text;
+            return emailTXT.Text;
         }
         set
         {
-            lastNameTXT.Text = value;
+			emailTXT.Text = value;
         }
     }
     public string Username
@@ -82,12 +82,12 @@ public partial class SignupPage : ContentPage
 
     private async void Register_Clicked(object sender, EventArgs e)
     {
-        if (firstNameValidator.IsNotValid)
+        if (nameValidator.IsNotValid)
         {
             await DisplayAlert("Error", "First Name is required.", "Ok");
             return;
         }
-        if (lastNameValidator.IsNotValid)
+        if (emailValidator.IsNotValid)
         {
             await DisplayAlert("Error", "Last Name is required.", "Ok");
             return;
@@ -124,8 +124,8 @@ public partial class SignupPage : ContentPage
 
         RegisterRequestModel model = new() { Username = Username,
             CivilId = CivilId, 
-            FirstName = FirstName, 
-            LastName = LastName,
+            Name = Name, 
+            Email = Email,
             Password = Password,
         };
         var apiResponse = await _userService.Register<AuthModelResponse>(model);
@@ -139,12 +139,17 @@ public partial class SignupPage : ContentPage
             Preferences.Set(SD.SD.SessionToken, apiResponse.Token);
             Preferences.Set(nameof(App.credData), nameof(apiResponse));
             App.credData = apiResponse;
+			App.currentCivilId = apiResponse.CivilId;
 
-            AppShell.Current.FlyoutHeader = new FlyoutHeaderControl();
+			AppShell.Current.FlyoutHeader = new FlyoutHeaderControl();
             await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
         }
 
     }
 
-
+	private async void Cancel_Clicked(object sender, EventArgs e)
+	{
+		var navPage = new LoginPage(_userService);
+		await Navigation.PushAsync(navPage);
+	}
 }

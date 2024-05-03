@@ -10,15 +10,9 @@
     Shell.BackgroundColor="#512bd4"
     Shell.TitleColor="White">
 
-    <!--<ShellContent
-        Title="CreateDelegationPage"
-        ContentTemplate="{DataTemplate pages:CreateDelegationPage}"
-        FlyoutItemIsVisible="False"
-        Shell.FlyoutBehavior="Disabled"
-        Route="CreateDelegationPage" />-->
     <ShellContent
         Title="LoginPage"
-        ContentTemplate="{DataTemplate pages:LoginPage}"
+        ContentTemplate="{DataTemplate pages:LoginWithImagePage}"
         FlyoutItemIsVisible="False"
         Shell.FlyoutBehavior="Disabled"
         Route="LoginPage" />

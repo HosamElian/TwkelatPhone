@@ -1,23 +1,42 @@
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using Twkelat.Mobile.Models.Request;
+using Twkelat.Mobile.Models.Response;
+using Twkelat.Mobile.Services.IServices;
+
 namespace Twkelat.Mobile.Pages;
 
 public partial class SettingsPage : ContentPage
 {
-	public SettingsPage()
+	private readonly IUserService _userService;
+
+	public SettingsPage(IUserService userService)
 	{
 		InitializeComponent();
+		_userService = userService;
 	}
 
     private async void ConirmBT_Clicked(object sender, EventArgs e)
     {
-        string codeRequest = await DisplayPromptAsync("Secret Code", "Write you Secret Code");
-        if (codeRequest == "123")
-        {
-            await DisplayAlert("Authenticated!", "Access granted", "OK");
-            //change it in api
-        }
-        else
-        {
-            await DisplayAlert("Unauthenticated", "Access denied", "OK");
-        }
+        string codeRequest = await DisplayPromptAsync("Authenticated Code", "Write you Secret Code", maxLength:10);
+        if (String.IsNullOrWhiteSpace(codeRequest)) return;
+
+		var userWithCode = new ChangeCodeRequestDTO 
+		{ 
+			CivilId = App.currentCivilId, 
+			OldCode = codeRequest,
+			NewCode = newKeyTXT.Text,
+		};
+		var request = await _userService.ChangeCode<APIResponse>(userWithCode);
+		if (request.IsSuccess)
+		{
+			await Toast.Make("Confirmed", ToastDuration.Short).Show();
+		}
+		else
+		{
+			await Toast.Make("Wrong Code", ToastDuration.Short).Show();
+
+		}
+        
     }
 }

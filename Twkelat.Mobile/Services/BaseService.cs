@@ -8,7 +8,6 @@ namespace Twkelat.Mobile.Services
 {
     public class BaseService : IBaseService
     {
-        //private readonly IHttpClientFactory _httpClient;
         HttpClient _client;
 
         public BaseService()

@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using Twkelat.Mobile.Enum;
 using Twkelat.Mobile.Models;
 using Twkelat.Mobile.Models.Request;
@@ -74,12 +76,15 @@ public partial class CreateDelegationPage : ContentPage
     {
         if (datePickerOfExpiration.Date < MinDate)
         {
-            await DisplayAlert("Invalid Date", "The date Can't be less than today", "ok");
+            await Toast.Make("The date Can't be less than today", ToastDuration.Short).Show();
+            //await DisplayAlert("Invalid Date", "The date Can't be less than today", "ok");
             datePickerOfExpiration.Date = MinDate;
         }
         if (datePickerOfExpiration.Date > MaxDate)
         {
-            await DisplayAlert("Invalid Date", "The date Can't be More than Year", "ok");
+			await Toast.Make("The date Can't be More than Year", ToastDuration.Short).Show();
+
+			//await DisplayAlert("Invalid Date", "The date Can't be More than Year", "ok");
             datePickerOfExpiration.Date = MaxDate;
         }
     }
