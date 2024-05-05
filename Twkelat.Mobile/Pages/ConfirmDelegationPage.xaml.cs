@@ -47,7 +47,10 @@ public partial class ConfirmDelegationPage : ContentPage
         }
         else
         {
-			var codeRequest = await DisplayPromptAsync("Authenticated Code", "Write you Secret Code", maxLength:10,keyboard:Keyboard.Text);
+			var genearationRequest = await _userService.GenerateCodeAsync<APIResponse>(App.currentCivilId);
+			if (!genearationRequest.IsSuccess) return;
+
+			var codeRequest = await DisplayPromptAsync("Authenticated Code", "Write your authentication Code", maxLength:10,keyboard:Keyboard.Text);
             if (codeRequest == null) return;
 
             var userWithCode = new CheckRequestDTO { CivilId = App.currentCivilId, Key = codeRequest };
@@ -56,10 +59,7 @@ public partial class ConfirmDelegationPage : ContentPage
 			if (request.IsSuccess)
 			{
 				CancellationTokenSource cancellationTokenSource = new();
-				await Toast.Make("Confirmed",
-						  ToastDuration.Short,
-						  14)
-					.Show(cancellationTokenSource.Token);
+				
 				await CreateBlock();
 			}
 			else

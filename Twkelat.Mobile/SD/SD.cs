@@ -22,6 +22,6 @@ namespace Twkelat.Mobile.SD
         public static string SettingPage = "setting_icon.svg";
 
         // url
-        public static string BaseURL = "http://192.168.1.6:5204/api/";
+        public static string BaseURL = "http://192.168.1.2:5204/api/";
     }
 }

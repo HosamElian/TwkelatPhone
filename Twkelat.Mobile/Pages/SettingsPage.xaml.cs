@@ -18,7 +18,7 @@ public partial class SettingsPage : ContentPage
 
     private async void ConirmBT_Clicked(object sender, EventArgs e)
     {
-        string codeRequest = await DisplayPromptAsync("Authenticated Code", "Write you Secret Code", maxLength:10);
+		string codeRequest = await DisplayPromptAsync("Authentication", "Write your old Password", maxLength:10);
         if (String.IsNullOrWhiteSpace(codeRequest)) return;
 
 		var userWithCode = new ChangeCodeRequestDTO 
@@ -31,6 +31,7 @@ public partial class SettingsPage : ContentPage
 		if (request.IsSuccess)
 		{
 			await Toast.Make("Confirmed", ToastDuration.Short).Show();
+			newKeyTXT.Text = "";
 		}
 		else
 		{

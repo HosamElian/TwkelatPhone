@@ -12,6 +12,6 @@ namespace Twkelat.Mobile.Services.IServices
         Task<T> GetbyIdAsync<T>(int blockId);
         Task<T> CreateAsync<T>(T dto);
         Task<T> UpdateAsync<T>(T dto);
-        //Task<T> DeleteAsync<T>(string id);
-    }
+		//Task<T> DeleteAsync<T>(string id);
+	}
 }

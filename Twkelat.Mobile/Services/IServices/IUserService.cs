@@ -13,5 +13,7 @@ namespace Twkelat.Mobile.Services.IServices
         Task<T> Register<T>(RegisterRequestModel dto);
         Task<T> CheckCode<T>(CheckRequestDTO dto);
         Task<T> ChangeCode<T>(ChangeCodeRequestDTO dto);
+        Task<T> GenerateCodeAsync<T>(string civilId);
+		
 	}
 }

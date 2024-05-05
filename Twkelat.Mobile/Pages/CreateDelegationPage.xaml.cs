@@ -58,7 +58,12 @@ public partial class CreateDelegationPage : ContentPage
         };
 
         App.createBlockRequest = data;
-        await Shell.Current.GoToAsync($"{nameof(ConfirmDelegationPage)}?TempleteId={(int)_selectedTempleteId}");
+        civilIdTXT.Text = "";
+		datePickerOfExpiration.Date = DateTime.Now;
+        scopeTXT.Text = "";
+        _selectedTempleteId = 8;
+
+		await Shell.Current.GoToAsync($"{nameof(ConfirmDelegationPage)}?TempleteId={(int)_selectedTempleteId}");
     }
     private void PublicRB_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {

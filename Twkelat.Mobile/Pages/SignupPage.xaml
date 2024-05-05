@@ -103,7 +103,7 @@
                                      Flags="ValidateOnAttaching,ValidateOnValueChanged">
                                     <toolkit:TextValidationBehavior
                                         Flags="ValidateOnAttaching,ValidateOnValueChanged" 
-                                         MinimumLength="10"
+                                         MinimumLength="12"
                                          toolkit:MultiValidationBehavior.Error="Civil Id is required"/>
                                 </toolkit:MultiValidationBehavior>
                             </Entry.Behaviors>

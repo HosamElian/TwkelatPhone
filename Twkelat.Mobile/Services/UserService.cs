@@ -29,6 +29,14 @@ namespace Twkelat.Mobile.Services
 				Url = baseUrl + "Auth/changeCode",
 			});
 		}
+		public Task<T> GenerateCodeAsync<T>(string civilId)
+		{
+			return SendAsync<T>(new APIRequest
+			{
+				ApiType = SD.SD.ApiType.GET,
+				Url = baseUrl + $"Auth/generateCode?civilId={civilId}"
+			});
+		}
 
 		public Task<T> Login<T>(LoginRequestModel dto)
         {

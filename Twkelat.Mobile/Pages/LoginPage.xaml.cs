@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using Twkelat.Mobile.Models.Request;
 using Twkelat.Mobile.Models.Response;
 using Twkelat.Mobile.Services.IServices;
@@ -66,8 +68,12 @@ public partial class LoginPage : ContentPage
             AppShell.Current.FlyoutHeader = new FlyoutHeaderControl();
             await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
         }
+        else
+        {
+			await Toast.Make("Unauthorized", ToastDuration.Short).Show();
+		}
 
-    }
+	}
 
     private async void SingupBT_Clicked(object sender, EventArgs e)
     {
